@@ -1,0 +1,37 @@
+name: CI 
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    brchances :
+      - main
+
+jobs:
+  build:
+    name: Build my project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Public Repo
+        uses: actions/checkout@v2
+        with:
+          repository: explicitworkload/python-calculator
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+
+      
+      - name: Install dependencies
+        run: |
+          pip install pytest pytest-mock robotframework
+
+      - name: Run pytest
+        run: pytest -v test_calculator.py 
+
+  #publish:
+        #needs 
