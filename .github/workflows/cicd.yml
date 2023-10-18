@@ -38,6 +38,12 @@ jobs:
       run: |
         pytest test_eliz.py -v -cov --junitxml=report.xml
 
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: surefire-reports
+        path: /home/runner/work/python-calc/python-calc/report.xml
+
     - if: ${{ failure() }}
       name: Create Issue on Failed workflow
       uses: dacbd/create-issue-action@main
