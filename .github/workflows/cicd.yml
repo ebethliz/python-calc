@@ -1,0 +1,66 @@
+name: CI for Hello World
+
+on:
+  push:
+    branches: [main]
+    
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.11
+
+    - name: Install Libraries
+      run: |
+        pip install flake8 pytest pytest-cov robotframework
+
+    - name: Checkout Own Repo
+      uses: actions/checkout@v2
+      with:
+        repository: ebethliz/helloworld-python
+
+    - name: Get TestScript from Remote Repository
+      env:
+        TOKEN: ${{ secrets.GITHUB_TOKEN }} #secrets.repo_token
+      run: |
+        curl -H "Authorization: token ${TOKEN}" https://raw.githubusercontent.com/ebethliz/python-calc/test_eliz.py -o testetst.py
+  
+    - name: List Content from Repo
+      run: |
+        pwd
+        ls
+
+    - name: Start pytest Testing
+      run: |
+        pytest test_eliz.py -v -cov --junitxml=report.xml
+
+    - if: ${{ failure() }}
+      name: Create Issue on Failed workflow
+      uses: dacbd/create-issue-action@main
+      with:
+        token: ${{ github.token }}
+        title: Action Workflow Failed.
+        body: |
+          ### Context
+          [Failed Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          [Codebase](https://github.com/${{ github.repository }}/tree/${{ github.sha }})
+          Workflow name - `${{ github.workflow }}`
+          Job -           `${{ github.job }}`
+          status -        `${{ job.status }}`
+          assignees: explicitworkload
+    
+    # - uses: JasonEtco/create-an-issue@v2
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     filename: .github/ISSUE_TEMPLATE.md
+  
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action/composite@v2
+      if: always()
+      with:
+        junit_files: "report.xml"
