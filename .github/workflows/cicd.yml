@@ -69,11 +69,11 @@ jobs:
     #   with:
     #     filename: .github/ISSUE_TEMPLATE.md
   
-    #- name: Publish Test Results
-    #  uses: EnricoMi/publish-unit-test-result-action/composite@v2
-    #  if: always()
-    #  with:
-    #    junit_files: "report.xml"
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action/composite@v2
+      if: always()
+      with:
+        junit_files: "report.xml"
 
 
     - name: Create Folder
