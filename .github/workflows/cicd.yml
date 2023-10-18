@@ -1,4 +1,4 @@
-name: CI for Hello World
+name: Test cases
 
 on:
   push:
