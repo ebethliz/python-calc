@@ -1,4 +1,4 @@
-name: Test cases
+name: Run Test Cases for Calc 
 
 on:
   push:
