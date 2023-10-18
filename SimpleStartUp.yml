@@ -1,0 +1,9 @@
+- name: Checkout private repo remotely
+  uses: actions/checkout@v2
+  with:
+     repository: <name of repo>
+     #path: <folder of choice>
+     token: ${{ secrets.<LIFE_STAGE> }}
+- name: Show hidden files
+  run: |
+     ls

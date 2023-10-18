@@ -1,0 +1,20 @@
+name: Simple Start Up
+on:
+    push:
+        branches: [main]
+jobs:
+    build:
+
+        name: Build my virtual OS
+
+        runs-on: Ubuntu-latest
+
+        steps:
+
+        - name: checkout my codes
+          uses: actions/checkout@v2
+
+        - name: Print and list out content
+          run: |
+            ls
+            echo Hello There!
