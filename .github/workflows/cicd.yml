@@ -71,6 +71,24 @@ jobs:
     #  with:
     #    junit_files: "report.xml"
 
+ 
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action/composite@v2
+      if: always()
+      with:
+        junit_files: "report.xml"
+
+    - name: Create Folder
+      run: mkdir downloads
+    
+    - name: Move Files
+      run: mv *.xml ./downloads
+      
+    - name: Upload document
+      uses: actions/upload-artifact@v2
+      with: 
+        name: assetDocuments
+        path: downloads
 
     
     - name: Set Environment Version
