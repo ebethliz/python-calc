@@ -41,7 +41,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
-        name: surefire-reports
+        name: calc-test-report
         path: /home/runner/work/python-calc/python-calc/report.xml
 
     - if: ${{ failure() }}
