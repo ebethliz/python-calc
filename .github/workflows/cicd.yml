@@ -21,7 +21,7 @@ jobs:
     - name: Checkout Own Repo
       uses: actions/checkout@v2
       with:
-        repository: ebethliz/helloworld-python
+        repository: ebethliz/python-calc
 
     - name: Get TestScript from Remote Repository
       env:
