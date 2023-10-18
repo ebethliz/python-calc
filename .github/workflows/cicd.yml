@@ -1,5 +1,11 @@
 name: Run Test Cases for Calc 
 
+
+on: 
+  push:
+    tags:
+      - 'v*'
+
 on:
   push:
     branches: [main]
