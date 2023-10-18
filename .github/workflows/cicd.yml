@@ -51,7 +51,7 @@ jobs:
           Workflow name - `${{ github.workflow }}`
           Job -           `${{ github.job }}`
           status -        `${{ job.status }}`
-          assignees: explicitworkload
+          assignees: ebethliz
     
     # - uses: JasonEtco/create-an-issue@v2
     #   env:
